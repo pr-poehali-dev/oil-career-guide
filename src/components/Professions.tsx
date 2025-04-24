@@ -1,168 +1,98 @@
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Button } from "@/components/ui/button";
-import { HardHat, Microscope, Wrench, ChartBar, Search, Beaker, Cog } from "lucide-react";
+import { Card } from "@/components/ui/card";
+import { BadgeCheck, HardHat, Wrench, Beaker, Laptop, Microscope, PieChart, Factory } from "lucide-react";
 
 const Professions = () => {
-  const professionCategories = [
+  const professions = [
     {
-      id: "field",
-      name: "Полевые специальности",
-      description: "Профессии, связанные с непосредственной работой на месторождениях",
-      professions: [
-        {
-          title: "Бурильщик",
-          description: "Специалист, управляющий процессом бурения скважин для добычи нефти и газа",
-          icon: <HardHat className="h-12 w-12 text-primary" />,
-          salary: "от 120 000 до 250 000 ₽",
-          demand: "Высокий",
-          requirements: "Среднее профессиональное образование, физическая выносливость",
-        },
-        {
-          title: "Оператор по добыче нефти и газа",
-          description: "Контролирует и обеспечивает бесперебойную работу оборудования для добычи нефти и газа",
-          icon: <Cog className="h-12 w-12 text-primary" />,
-          salary: "от 90 000 до 180 000 ₽",
-          demand: "Стабильно высокий",
-          requirements: "Среднее профессиональное образование, технический склад ума",
-        },
-        {
-          title: "Помощник бурильщика",
-          description: "Ассистирует бурильщику в процессе бурения скважин и обслуживания бурового оборудования",
-          icon: <Wrench className="h-12 w-12 text-primary" />,
-          salary: "от 80 000 до 150 000 ₽",
-          demand: "Высокий",
-          requirements: "Среднее профессиональное образование, физическая выносливость",
-        },
-      ],
+      title: "Инженер-нефтяник",
+      description: "Разрабатывает и оптимизирует технологии добычи нефти и газа, работает с техническими аспектами бурения скважин.",
+      icon: <HardHat className="h-8 w-8 text-secondary" />,
+      salary: "220,000 - 450,000 ₽",
+      prospects: "Высокий спрос до 2035 года"
     },
     {
-      id: "technical",
-      name: "Технические специальности",
-      description: "Инженерные и технические профессии в нефтяной промышленности",
-      professions: [
-        {
-          title: "Инженер-нефтяник",
-          description: "Проектирует и контролирует процессы разработки месторождений нефти и газа",
-          icon: <ChartBar className="h-12 w-12 text-primary" />,
-          salary: "от 150 000 до 300 000 ₽",
-          demand: "Очень высокий",
-          requirements: "Высшее образование, аналитический склад ума",
-        },
-        {
-          title: "Геолог-нефтяник",
-          description: "Изучает геологическое строение месторождений для определения запасов нефти и газа",
-          icon: <Search className="h-12 w-12 text-primary" />,
-          salary: "от 130 000 до 250 000 ₽",
-          demand: "Высокий",
-          requirements: "Высшее образование, пространственное мышление",
-        },
-        {
-          title: "Лаборант химического анализа",
-          description: "Проводит анализы качества нефти, нефтепродуктов и химических реагентов",
-          icon: <Beaker className="h-12 w-12 text-primary" />,
-          salary: "от 70 000 до 120 000 ₽",
-          demand: "Средний",
-          requirements: "Среднее профессиональное образование, внимательность",
-        },
-      ],
+      title: "Оператор нефтегазодобычи",
+      description: "Управляет оборудованием нефтегазовых скважин, контролирует добычу, параметры работы и исправность системы.",
+      icon: <Wrench className="h-8 w-8 text-secondary" />,
+      salary: "90,000 - 180,000 ₽",
+      prospects: "Стабильный спрос, автоматизация части функций"
     },
     {
-      id: "management",
-      name: "Управленческие должности",
-      description: "Руководящие позиции в нефтяной отрасли",
-      professions: [
-        {
-          title: "Начальник участка бурения",
-          description: "Руководит работой бурового участка, координирует процессы бурения скважин",
-          icon: <HardHat className="h-12 w-12 text-primary" />,
-          salary: "от 250 000 до 400 000 ₽",
-          demand: "Высокий",
-          requirements: "Высшее образование, опыт работы от 5 лет, лидерские качества",
-        },
-        {
-          title: "Главный инженер",
-          description: "Отвечает за техническую политику предприятия и руководит инженерным составом",
-          icon: <Cog className="h-12 w-12 text-primary" />,
-          salary: "от 300 000 до 500 000 ₽",
-          demand: "Средний",
-          requirements: "Высшее образование, опыт работы от 7-10 лет, стратегическое мышление",
-        },
-        {
-          title: "Начальник лаборатории",
-          description: "Руководит работой лаборатории по контролю качества нефти и нефтепродуктов",
-          icon: <Microscope className="h-12 w-12 text-primary" />,
-          salary: "от 180 000 до 300 000 ₽",
-          demand: "Средний",
-          requirements: "Высшее образование, опыт работы от 5 лет, организаторские способности",
-        },
-      ],
+      title: "Лаборант химического анализа",
+      description: "Анализирует свойства нефти, нефтепродуктов и газа, отслеживает качество и соответствие стандартам.",
+      icon: <Beaker className="h-8 w-8 text-secondary" />,
+      salary: "70,000 - 120,000 ₽",
+      prospects: "Высокий спрос на фоне роста требований к качеству"
     },
+    {
+      title: "Геолог-нефтяник",
+      description: "Исследует геологическое строение нефтяных месторождений, прогнозирует запасы и оптимальные методы добычи.",
+      icon: <Microscope className="h-8 w-8 text-secondary" />,
+      salary: "160,000 - 300,000 ₽",
+      prospects: "Высокий спрос на фоне разработки новых месторождений"
+    },
+    {
+      title: "Цифровой аналитик месторождений",
+      description: "Анализирует данные с месторождений с помощью цифровых технологий, оптимизирует процессы добычи.",
+      icon: <Laptop className="h-8 w-8 text-secondary" />,
+      salary: "200,000 - 380,000 ₽",
+      prospects: "Растущий спрос на фоне цифровизации отрасли"
+    },
+    {
+      title: "Экономист нефтегазового сектора",
+      description: "Анализирует экономические показатели, оценивает рентабельность проектов и инвестиционные риски.",
+      icon: <PieChart className="h-8 w-8 text-secondary" />,
+      salary: "140,000 - 250,000 ₽",
+      prospects: "Стабильный спрос в условиях экономической неопределенности"
+    },
+    {
+      title: "Инженер-эколог в нефтегазе",
+      description: "Разрабатывает и внедряет природоохранные технологии, снижает негативное воздействие на окружающую среду.",
+      icon: <Factory className="h-8 w-8 text-secondary" />,
+      salary: "150,000 - 270,000 ₽",
+      prospects: "Растущий спрос в связи с усилением экологических требований"
+    },
+    {
+      title: "Специалист по цифровым двойникам",
+      description: "Создает и обслуживает цифровые копии нефтяных объектов для моделирования и оптимизации процессов.",
+      icon: <BadgeCheck className="h-8 w-8 text-secondary" />,
+      salary: "220,000 - 400,000 ₽",
+      prospects: "Высокий спрос на фоне развития технологий Индустрии 4.0"
+    }
   ];
 
   return (
-    <section id="professions" className="py-16 bg-background">
+    <section id="professions" className="py-16 bg-white">
       <div className="container mx-auto px-4">
         <h2 className="text-3xl font-bold text-center mb-4">
           Основные профессии в нефтяной промышленности
         </h2>
         <p className="text-center text-muted-foreground mb-12 max-w-3xl mx-auto">
-          Нефтяная отрасль предлагает широкий спектр карьерных возможностей с различными требованиями 
-          к образованию и навыкам. Обзор актуальных профессий на 2025 год.
+          Нефтяная отрасль предлагает широкий спектр специальностей с различными требованиями и уровнем ответственности. 
+          Данные актуальны на 2025 год.
         </p>
-
-        <Tabs defaultValue="field" className="w-full">
-          <TabsList className="grid grid-cols-1 md:grid-cols-3 max-w-3xl mx-auto mb-8">
-            {professionCategories.map((category) => (
-              <TabsTrigger key={category.id} value={category.id} className="text-sm md:text-base">
-                {category.name}
-              </TabsTrigger>
-            ))}
-          </TabsList>
-
-          {professionCategories.map((category) => (
-            <TabsContent key={category.id} value={category.id} className="mt-6">
-              <div className="text-center mb-8">
-                <h3 className="text-xl font-medium mb-2">{category.name}</h3>
-                <p className="text-muted-foreground">{category.description}</p>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {professions.map((profession, index) => (
+            <Card key={index} className="p-6 hover:shadow-lg transition-shadow flex flex-col h-full border-t-4 border-t-secondary">
+              <div className="flex items-center mb-4">
+                {profession.icon}
+                <h3 className="text-xl font-semibold ml-3">{profession.title}</h3>
               </div>
-
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {category.professions.map((profession, index) => (
-                  <Card key={index} className="overflow-hidden hover:shadow-lg transition-all duration-300">
-                    <CardHeader className="pb-3">
-                      <div className="flex justify-between items-start">
-                        <div className="bg-primary/10 p-3 rounded-lg">{profession.icon}</div>
-                        <div className="px-3 py-1 bg-secondary/10 text-secondary rounded-full text-sm font-medium">
-                          Востребованность: {profession.demand}
-                        </div>
-                      </div>
-                      <CardTitle className="mt-4">{profession.title}</CardTitle>
-                      <CardDescription className="mt-2">{profession.description}</CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="space-y-2">
-                        <div className="flex justify-between">
-                          <span className="text-muted-foreground">Зарплата (2025):</span>
-                          <span className="font-medium">{profession.salary}</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-muted-foreground">Требования:</span>
-                          <span className="text-right">{profession.requirements}</span>
-                        </div>
-                      </div>
-                    </CardContent>
-                    <CardFooter>
-                      <Button variant="outline" className="w-full" onClick={() => document.getElementById('education')?.scrollIntoView({behavior: 'smooth'})}>
-                        Узнать о подготовке
-                      </Button>
-                    </CardFooter>
-                  </Card>
-                ))}
+              <p className="text-muted-foreground mb-4 flex-grow">{profession.description}</p>
+              <div className="pt-4 border-t mt-auto">
+                <div className="flex justify-between items-center mb-2">
+                  <span className="text-sm font-medium">Зарплата (мес.):</span>
+                  <span className="text-primary font-bold">{profession.salary}</span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-sm font-medium">Перспективы:</span>
+                  <span className="text-green-600 text-sm">{profession.prospects}</span>
+                </div>
               </div>
-            </TabsContent>
+            </Card>
           ))}
-        </Tabs>
+        </div>
       </div>
     </section>
   );
