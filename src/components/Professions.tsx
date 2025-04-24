@@ -1,117 +1,104 @@
-
-import { useState } from "react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
-import { HardHat, Beaker, Database, BarChart3, Hammer, Search } from "lucide-react";
-
-interface Profession {
-  id: string;
-  title: string;
-  description: string;
-  icon: JSX.Element;
-  salary: string;
-  education: string;
-  workplaces: string[];
-  tasks: string[];
-}
+import { HardHat, Microscope, Wrench, ChartBar, Search, Beaker, Cog } from "lucide-react";
 
 const Professions = () => {
-  const professions: Profession[] = [
+  const professionCategories = [
     {
-      id: "engineer",
-      title: "Инженер-нефтяник",
-      description: "Специалист, отвечающий за техническое сопровождение бурения, добычи и переработки нефти.",
-      icon: <HardHat className="h-12 w-12 text-primary" />,
-      salary: "от 90 000 до 250 000 ₽",
-      education: "Высшее техническое (бакалавр, магистр)",
-      workplaces: ["Нефтедобывающие компании", "Сервисные предприятия", "Проектные институты"],
-      tasks: [
-        "Разработка технических решений для повышения эффективности добычи",
-        "Контроль за соблюдением технологических процессов",
-        "Анализ работы скважин и нефтепромыслового оборудования",
-        "Планирование работ по ремонту скважин"
-      ]
+      id: "field",
+      name: "Полевые специальности",
+      description: "Профессии, связанные с непосредственной работой на месторождениях",
+      professions: [
+        {
+          title: "Бурильщик",
+          description: "Специалист, управляющий процессом бурения скважин для добычи нефти и газа",
+          icon: <HardHat className="h-12 w-12 text-primary" />,
+          salary: "от 120 000 до 250 000 ₽",
+          demand: "Высокий",
+          requirements: "Среднее профессиональное образование, физическая выносливость",
+        },
+        {
+          title: "Оператор по добыче нефти и газа",
+          description: "Контролирует и обеспечивает бесперебойную работу оборудования для добычи нефти и газа",
+          icon: <Cog className="h-12 w-12 text-primary" />,
+          salary: "от 90 000 до 180 000 ₽",
+          demand: "Стабильно высокий",
+          requirements: "Среднее профессиональное образование, технический склад ума",
+        },
+        {
+          title: "Помощник бурильщика",
+          description: "Ассистирует бурильщику в процессе бурения скважин и обслуживания бурового оборудования",
+          icon: <Wrench className="h-12 w-12 text-primary" />,
+          salary: "от 80 000 до 150 000 ₽",
+          demand: "Высокий",
+          requirements: "Среднее профессиональное образование, физическая выносливость",
+        },
+      ],
     },
     {
-      id: "geologist",
-      title: "Геолог-нефтяник",
-      description: "Специалист, изучающий геологическое строение месторождений и прогнозирующий запасы нефти.",
-      icon: <Search className="h-12 w-12 text-primary" />,
-      salary: "от 80 000 до 200 000 ₽",
-      education: "Высшее геологическое",
-      workplaces: ["Геологоразведочные экспедиции", "Нефтедобывающие компании", "Научно-исследовательские институты"],
-      tasks: [
-        "Геологическое картирование территорий",
-        "Изучение образцов пород и создание геологических моделей",
-        "Оценка запасов нефти в месторождениях",
-        "Планирование разведочного бурения"
-      ]
+      id: "technical",
+      name: "Технические специальности",
+      description: "Инженерные и технические профессии в нефтяной промышленности",
+      professions: [
+        {
+          title: "Инженер-нефтяник",
+          description: "Проектирует и контролирует процессы разработки месторождений нефти и газа",
+          icon: <ChartBar className="h-12 w-12 text-primary" />,
+          salary: "от 150 000 до 300 000 ₽",
+          demand: "Очень высокий",
+          requirements: "Высшее образование, аналитический склад ума",
+        },
+        {
+          title: "Геолог-нефтяник",
+          description: "Изучает геологическое строение месторождений для определения запасов нефти и газа",
+          icon: <Search className="h-12 w-12 text-primary" />,
+          salary: "от 130 000 до 250 000 ₽",
+          demand: "Высокий",
+          requirements: "Высшее образование, пространственное мышление",
+        },
+        {
+          title: "Лаборант химического анализа",
+          description: "Проводит анализы качества нефти, нефтепродуктов и химических реагентов",
+          icon: <Beaker className="h-12 w-12 text-primary" />,
+          salary: "от 70 000 до 120 000 ₽",
+          demand: "Средний",
+          requirements: "Среднее профессиональное образование, внимательность",
+        },
+      ],
     },
     {
-      id: "lab",
-      title: "Лаборант химического анализа",
-      description: "Специалист, проводящий лабораторные исследования нефти и нефтепродуктов.",
-      icon: <Beaker className="h-12 w-12 text-primary" />,
-      salary: "от 50 000 до 90 000 ₽",
-      education: "Среднее профессиональное или высшее химическое",
-      workplaces: ["Лаборатории на НПЗ", "Научно-исследовательские центры", "Контрольно-аналитические службы"],
-      tasks: [
-        "Анализ состава и свойств нефти и нефтепродуктов",
-        "Контроль качества готовой продукции",
-        "Проведение испытаний опытных образцов",
-        "Оформление результатов анализа"
-      ]
+      id: "management",
+      name: "Управленческие должности",
+      description: "Руководящие позиции в нефтяной отрасли",
+      professions: [
+        {
+          title: "Начальник участка бурения",
+          description: "Руководит работой бурового участка, координирует процессы бурения скважин",
+          icon: <HardHat className="h-12 w-12 text-primary" />,
+          salary: "от 250 000 до 400 000 ₽",
+          demand: "Высокий",
+          requirements: "Высшее образование, опыт работы от 5 лет, лидерские качества",
+        },
+        {
+          title: "Главный инженер",
+          description: "Отвечает за техническую политику предприятия и руководит инженерным составом",
+          icon: <Cog className="h-12 w-12 text-primary" />,
+          salary: "от 300 000 до 500 000 ₽",
+          demand: "Средний",
+          requirements: "Высшее образование, опыт работы от 7-10 лет, стратегическое мышление",
+        },
+        {
+          title: "Начальник лаборатории",
+          description: "Руководит работой лаборатории по контролю качества нефти и нефтепродуктов",
+          icon: <Microscope className="h-12 w-12 text-primary" />,
+          salary: "от 180 000 до 300 000 ₽",
+          demand: "Средний",
+          requirements: "Высшее образование, опыт работы от 5 лет, организаторские способности",
+        },
+      ],
     },
-    {
-      id: "data",
-      title: "Специалист по анализу данных",
-      description: "Специалист, занимающийся обработкой и анализом больших массивов данных для оптимизации нефтедобычи.",
-      icon: <Database className="h-12 w-12 text-primary" />,
-      salary: "от 120 000 до 300 000 ₽",
-      education: "Высшее (информатика, математика, нефтяное дело)",
-      workplaces: ["IT-отделы нефтяных компаний", "Аналитические центры", "Технологические стартапы"],
-      tasks: [
-        "Анализ показателей добычи и переработки",
-        "Создание моделей для прогнозирования добычи",
-        "Разработка алгоритмов оптимизации производства",
-        "Визуализация данных для принятия решений"
-      ]
-    },
-    {
-      id: "economy",
-      title: "Экономист нефтегазовой отрасли",
-      description: "Специалист, отвечающий за экономическое планирование и анализ эффективности нефтяных проектов.",
-      icon: <BarChart3 className="h-12 w-12 text-primary" />,
-      salary: "от 70 000 до 180 000 ₽",
-      education: "Высшее экономическое",
-      workplaces: ["Плановые отделы нефтяных компаний", "Инвестиционные департаменты", "Консалтинговые фирмы"],
-      tasks: [
-        "Экономическая оценка проектов разработки месторождений",
-        "Планирование бюджета на нефтедобычу",
-        "Расчет себестоимости продукции",
-        "Анализ экономической эффективности производства"
-      ]
-    },
-    {
-      id: "technician",
-      title: "Оператор по добыче нефти и газа",
-      description: "Специалист, непосредственно работающий на объектах нефтедобычи и обслуживающий оборудование.",
-      icon: <Hammer className="h-12 w-12 text-primary" />,
-      salary: "от 65 000 до 150 000 ₽",
-      education: "Среднее профессиональное",
-      workplaces: ["Нефтепромыслы", "Буровые площадки", "Нефтеперерабатывающие заводы"],
-      tasks: [
-        "Обслуживание нефтепромыслового оборудования",
-        "Контроль режима работы скважин",
-        "Выполнение технологических операций",
-        "Ликвидация неполадок оборудования"
-      ]
-    }
   ];
-
-  const [showAll, setShowAll] = useState(false);
-  const visibleProfessions = showAll ? professions : professions.slice(0, 3);
 
   return (
     <section id="professions" className="py-16 bg-background">
@@ -119,55 +106,63 @@ const Professions = () => {
         <h2 className="text-3xl font-bold text-center mb-4">
           Основные профессии в нефтяной промышленности
         </h2>
-        <p className="text-center text-muted-foreground mb-10 max-w-3xl mx-auto">
-          Нефтяная отрасль объединяет специалистов различных направлений. 
-          Познакомьтесь с наиболее востребованными профессиями в этой сфере.
+        <p className="text-center text-muted-foreground mb-12 max-w-3xl mx-auto">
+          Нефтяная отрасль предлагает широкий спектр карьерных возможностей с различными требованиями 
+          к образованию и навыкам. Обзор актуальных профессий на 2025 год.
         </p>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-          {visibleProfessions.map((profession) => (
-            <Card key={profession.id} className="h-full flex flex-col hover:shadow-lg transition-shadow">
-              <CardHeader className="pb-3">
-                <div className="mb-3">{profession.icon}</div>
-                <CardTitle>{profession.title}</CardTitle>
-                <CardDescription>{profession.description}</CardDescription>
-              </CardHeader>
-              <CardContent className="flex-grow">
-                <div className="mb-4">
-                  <span className="text-sm font-medium text-muted-foreground">Зарплата:</span>
-                  <p className="font-semibold">{profession.salary}</p>
-                </div>
-                <div className="mb-4">
-                  <span className="text-sm font-medium text-muted-foreground">Образование:</span>
-                  <p>{profession.education}</p>
-                </div>
-                <div>
-                  <span className="text-sm font-medium text-muted-foreground">Основные задачи:</span>
-                  <ul className="mt-1 space-y-1">
-                    {profession.tasks.map((task, index) => (
-                      <li key={index} className="text-sm">{task}</li>
-                    ))}
-                  </ul>
-                </div>
-              </CardContent>
-              <CardFooter className="flex flex-wrap gap-2 border-t pt-4">
-                {profession.workplaces.map((workplace, index) => (
-                  <Badge key={index} variant="secondary">{workplace}</Badge>
-                ))}
-              </CardFooter>
-            </Card>
-          ))}
-        </div>
+        <Tabs defaultValue="field" className="w-full">
+          <TabsList className="grid grid-cols-1 md:grid-cols-3 max-w-3xl mx-auto mb-8">
+            {professionCategories.map((category) => (
+              <TabsTrigger key={category.id} value={category.id} className="text-sm md:text-base">
+                {category.name}
+              </TabsTrigger>
+            ))}
+          </TabsList>
 
-        <div className="text-center">
-          <Button 
-            onClick={() => setShowAll(!showAll)} 
-            variant="outline"
-            className="hover:bg-primary hover:text-primary-foreground"
-          >
-            {showAll ? "Показать меньше" : "Показать больше профессий"}
-          </Button>
-        </div>
+          {professionCategories.map((category) => (
+            <TabsContent key={category.id} value={category.id} className="mt-6">
+              <div className="text-center mb-8">
+                <h3 className="text-xl font-medium mb-2">{category.name}</h3>
+                <p className="text-muted-foreground">{category.description}</p>
+              </div>
+
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {category.professions.map((profession, index) => (
+                  <Card key={index} className="overflow-hidden hover:shadow-lg transition-all duration-300">
+                    <CardHeader className="pb-3">
+                      <div className="flex justify-between items-start">
+                        <div className="bg-primary/10 p-3 rounded-lg">{profession.icon}</div>
+                        <div className="px-3 py-1 bg-secondary/10 text-secondary rounded-full text-sm font-medium">
+                          Востребованность: {profession.demand}
+                        </div>
+                      </div>
+                      <CardTitle className="mt-4">{profession.title}</CardTitle>
+                      <CardDescription className="mt-2">{profession.description}</CardDescription>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="space-y-2">
+                        <div className="flex justify-between">
+                          <span className="text-muted-foreground">Зарплата (2025):</span>
+                          <span className="font-medium">{profession.salary}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span className="text-muted-foreground">Требования:</span>
+                          <span className="text-right">{profession.requirements}</span>
+                        </div>
+                      </div>
+                    </CardContent>
+                    <CardFooter>
+                      <Button variant="outline" className="w-full" onClick={() => document.getElementById('education')?.scrollIntoView({behavior: 'smooth'})}>
+                        Узнать о подготовке
+                      </Button>
+                    </CardFooter>
+                  </Card>
+                ))}
+              </div>
+            </TabsContent>
+          ))}
+        </Tabs>
       </div>
     </section>
   );
