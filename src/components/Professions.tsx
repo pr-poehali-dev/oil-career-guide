@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { HardHat, Flask, Database, BarChart3, Hammer, Search } from "lucide-react";
+import { HardHat, Beaker, Database, BarChart3, Hammer, Search } from "lucide-react";
 
 interface Profession {
   id: string;
@@ -52,7 +52,7 @@ const Professions = () => {
       id: "lab",
       title: "Лаборант химического анализа",
       description: "Специалист, проводящий лабораторные исследования нефти и нефтепродуктов.",
-      icon: <Flask className="h-12 w-12 text-primary" />,
+      icon: <Beaker className="h-12 w-12 text-primary" />,
       salary: "от 50 000 до 90 000 ₽",
       education: "Среднее профессиональное или высшее химическое",
       workplaces: ["Лаборатории на НПЗ", "Научно-исследовательские центры", "Контрольно-аналитические службы"],
